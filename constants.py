@@ -1,6 +1,6 @@
-from reports import StudentPerformanceReport
+from reports import PerformanceReport
 
 
 REPORTS = {
-    'student-performance': StudentPerformanceReport,
+    'performance': PerformanceReport,
 }

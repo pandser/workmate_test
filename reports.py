@@ -6,29 +6,28 @@ class Report:
     def __init__(self, files: list[Path]):
         self.files = files
 
-
-class StudentPerformanceReport(Report):
-    def __init__(self, files):
-        super().__init__(files)
-        self.headers = ['student_name', 'grade']
-    
-    def calculate_avg_grade(self, grades: list[int]) -> float:
+    def calculate_avg(self, grades: list[int]) -> float:
         return sum(grades) / len(grades)
 
+class PerformanceReport(Report):
+    def __init__(self, files):
+        super().__init__(files)
+        self.headers = ['position', 'performance']
+    
     def get_report(self):
         result: dict = {}
         for file in self.files:
             with open(file) as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-                    student_name = row.get('student_name')
-                    grade = row.get('grade')
-                    if student_name not in result:
-                        result[student_name] = [int(grade)]
+                    position = row.get(self.headers[0])
+                    performance = row.get(self.headers[1])
+                    if position not in result:
+                        result[position] = [float(performance)]
                     else:
-                        result[student_name].append(int(grade))
+                        result[position].append(float(performance))
         for i in result:
-            result[i] = self.calculate_avg_grade(result[i])
+            result[i] = self.calculate_avg(result[i])
         sort_result = sorted(
             result.items(),
             key=lambda item: item[1], 

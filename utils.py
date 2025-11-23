@@ -7,7 +7,7 @@ def search_in_current_dir() -> list[Path]:
     print(directory)
     files = []
     for file in directory.iterdir():  
-        if re.search(pattern=r'^student.*csv', string=file.name):
+        if re.search(pattern=r'^employees.*csv', string=file.name):
             files.append(file.name)
     if not files:
         raise FileNotFoundError(

@@ -17,10 +17,9 @@ parser.add_argument(
     '--report',
     type=str,
     help='report name',
-    default='student-performance',
+    default='performance',
 )
 args = parser.parse_args()
-
 files = args.files
 if not files:
     try:
@@ -30,7 +29,6 @@ if not files:
 for file in files:
     if not Path(file).exists():
         raise FileNotFoundError(f'Файл {file} не найден.')
-
 report = REPORTS[args.report](files=files)
 rep_for_print = report.get_report()
 print(tabulate(rep_for_print[0], headers=rep_for_print[1]))
